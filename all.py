@@ -64,13 +64,14 @@ class urlTest(object):
         return ngrams
 
 if __name__ == '__main__':
-    # 若 检测模型文件lgs.pickle 不存在,需要先训练出模型
-    #w = urlTest()
-    #with open('lgs.pickle','wb') as output:
-         #wpickle.dump(w,output)
-
-    with open('lgs.pickle','rb') as input:
-        w = pickle.load(input)
+    if not os.isfile(os.path.join(os.getcwd(), 'lgs.pickle')):
+        print('the model is not founded, starting trainning.')
+        w = urlTest()
+        with open('lgs.pickle','wb') as output:
+            wpickle.dump(w,output)
+    else:
+        with open('lgs.pickle','rb') as input:
+            w = pickle.load(input)
 
     w.predict(['qq.com','google/images','<script>alert(1)</script>',
     'wp-content/wp-pluginswp-content/wp-plugins','example/test/q=<script>alert(1)</script>','q=../etc/passwd'])
