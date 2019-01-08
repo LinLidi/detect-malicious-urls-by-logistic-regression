@@ -1,7 +1,6 @@
 # coding: utf-8
 
 import os
-
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -41,7 +40,6 @@ class urlTest(object):
             print('{}  {}'.format(q,tmp))
         return res
         
-
     # 得到文本中的请求列表
     def get_query_list(self,filename):
         directory = str(os.getcwd())
@@ -60,21 +58,21 @@ class urlTest(object):
         ngrams = []
         for i in range(0,len(tempQuery)-3):
             ngrams.append(tempQuery[i:i+3])
-        #print(ngrams)
         return ngrams
 
 if __name__ == '__main__':
-    if not os.isfile(os.path.join(os.getcwd(), 'lgs.pickle')):
+    if not os.path.isfile(os.path.join(os.getcwd(), 'lgs.pickle')):
         print('the model is not founded, starting trainning.')
         w = urlTest()
-        with open('lgs.pickle','wb') as output:
-            wpickle.dump(w,output)
+        with open('lgs.pickle','wb') as m_output:
+            pickle.dump(w, m_output)
     else:
-        with open('lgs.pickle','rb') as input:
-            w = pickle.load(input)
+        with open('lgs.pickle','rb') as m_input:
+            w = pickle.load(m_input)
 
-    w.predict(['qq.com','google/images','<script>alert(1)</script>',
-    'wp-content/wp-pluginswp-content/wp-plugins','example/test/q=<script>alert(1)</script>','q=../etc/passwd'])
-    #'www.foo.com/name=admin\' or 1=1', 'abc.com/admin.php',
-    #'"><svg onload=confirm(1)>', 'test/q=<a href="javascript:confirm(1)>', 'q=../etc/passwd']
+    w.predict(['qq.com','google/images',
+            '<script>alert(1)</script>',
+            'wp-content/wp-pluginswp-content/wp-plugins',
+            'example/test/q=<script>alert(1)</script>',
+            'q=../etc/passwd'])
 
